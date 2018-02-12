@@ -35,6 +35,10 @@ keytool -importcert -alias rootca -file rootca.cer  -keypass s3cr3t -keystore .\
 >
 keytool -importcert -alias rootca -file rootca.cer  -keypass s3cr3t -keystore .\client-trust.jks -storepass s3cr3t  -storepass s3cr3t  -noprompt
 >
+#### Steps 6: import the certficate - ca1.cer into client-trust.jks
+>
+keytool -importcert -alias ca1 -file ca1.cer  -keypass s3cr3t -keystore .\server-trust.jks -storepass s3cr3t  -storepass s3cr3t  -noprompt
+>
 
 #### Conclusion
-You can see that, we only need to add the rootca into server-trust, then it can trust all the sub ca from the client
+You can see that, we must add all the sub ca from the client into server-trust
