@@ -9,7 +9,7 @@ In this way, anyone can access http://localhost:8080/door?uri=https://localhost:
 
 #### Steps 1: generate a certificate - rootca
 > 
-keytool -genkeypair -alias rootca -keyalg RSA -dname "CN=svst.ac2.io,OU=Accenture,O=Development,L=Australia,S=sydney,C=AU"  -keypass s3cr3t -keystore .\server.jks -storepass s3cr3t  -storepass s3cr3t
+keytool -genkeypair -alias rootca -keyalg RSA -dname "CN=www.root.com,OU=company,O=Development,L=China,S=dalian,C=CN"  -keypass s3cr3t -keystore .\server.jks -storepass s3cr3t  -storepass s3cr3t
 >
 #### Steps 2: it is self signed certificate. So let's call it rootca, export it as rootca.cer
 >
@@ -17,7 +17,7 @@ keytool -exportcert -alias rootca -file .\rootca.cer -keystore .\server.jks -sto
 >
 #### Steps 3: generate a new certificate for client - ca1
 > 
-keytool -genkeypair -alias ca1 -keyalg RSA -dname "CN=www.1.com,OU=Accenture,O=Development,L=Australia,S=sydney,C=AU"  -keypass s3cr3t -keystore .\client.jks -storepass s3cr3t  -storepass s3cr3t
+keytool -genkeypair -alias ca1 -keyalg RSA -dname "CN=www.1.com,OU=company,O=Development,L=China,S=dalian,C=CN"  -keypass s3cr3t -keystore .\client.jks -storepass s3cr3t  -storepass s3cr3t
 >
 #### Steps 4: get a signer request for ca1
 >
