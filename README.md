@@ -35,7 +35,7 @@ keytool -importcert -alias rootca -file rootca.cer  -keypass s3cr3t -keystore .\
 >
 keytool -importcert -alias rootca -file rootca.cer  -keypass s3cr3t -keystore .\client-trust.jks -storepass s3cr3t  -storepass s3cr3t  -noprompt
 >
-#### Steps 8: import the certficate - ca1.cer into client-trust.jks
+#### Steps 8: import the certficate - ca1.cer into server-trust.jks
 >
 keytool -importcert -alias ca1 -file ca1.cer  -keypass s3cr3t -keystore .\server-trust.jks -storepass s3cr3t  -storepass s3cr3t  -noprompt
 >
