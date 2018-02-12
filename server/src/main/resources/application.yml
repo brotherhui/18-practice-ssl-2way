@@ -1,0 +1,11 @@
+server:
+  port: 8443
+  ssl:
+    key-store: classpath:server.jks
+    key-store-password: s3cr3t
+    key-password: s3cr3t
+    #if we added below trust-store. The server will not accept normal access from webpage
+    trust-store: classpath:server-trust.jks
+    trust-store-password: s3cr3t
+    client-auth: need
+
