@@ -23,19 +23,19 @@ keytool -genkeypair -alias ca1 -keyalg RSA -dname "CN=www.1.com,OU=company,O=Dev
 >
 keytool -certreq -alias ca1 -file ca1.csr   -keypass s3cr3t -keystore .\client.jks -storepass s3cr3t  -storepass s3cr3t
 >
-#### Steps 4: sign it with rootca, so we get the certificate - ca1
+#### Steps 5: sign it with rootca, so we get the certificate - ca1
 >
 keytool -gencert -alias rootca -infile ca1.csr -outfile ca1.cer   -keypass s3cr3t -keystore .\server.jks -storepass s3cr3t  -storepass s3cr3t
 >
-#### Steps 5: import the certficate - rootca.cer into server-trust.jks
+#### Steps 6: import the certficate - rootca.cer into server-trust.jks
 >
 keytool -importcert -alias rootca -file rootca.cer  -keypass s3cr3t -keystore .\server-trust.jks -storepass s3cr3t  -storepass s3cr3t  -noprompt
 >
-#### Steps 6: import the certficate - rootca.cer into client-trust.jks
+#### Steps 7: import the certficate - rootca.cer into client-trust.jks
 >
 keytool -importcert -alias rootca -file rootca.cer  -keypass s3cr3t -keystore .\client-trust.jks -storepass s3cr3t  -storepass s3cr3t  -noprompt
 >
-#### Steps 6: import the certficate - ca1.cer into client-trust.jks
+#### Steps 8: import the certficate - ca1.cer into client-trust.jks
 >
 keytool -importcert -alias ca1 -file ca1.cer  -keypass s3cr3t -keystore .\server-trust.jks -storepass s3cr3t  -storepass s3cr3t  -noprompt
 >
