@@ -9,6 +9,6 @@ public class GlobalIntercepterConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new SSLIntercepter()).addPathPatterns("/**");
+        registry.addInterceptor(new GlobalIntercepter()).addPathPatterns("/**");
     }
 }

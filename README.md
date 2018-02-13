@@ -106,5 +106,12 @@ keytool -importcert -alias ca2 -file ca2.cer  -keypass s3cr3t -keystore .\client
 >
 
 
+#### Steps 7: import the certficate - clientca2.cer into client-3level.jks
+>
+keytool -importcert -alias clientca2 -file clientca2.cer  -keypass s3cr3t -keystore .\client-3level-final.jks -storepass s3cr3t  -noprompt
+>
+
+
+
 #### Conclusion
 3level also not work. only if we add the 3rd level ca into truststore
