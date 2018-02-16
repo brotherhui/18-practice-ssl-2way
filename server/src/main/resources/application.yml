@@ -1,13 +1,13 @@
 server:
   port: 8443
   ssl:
-    key-store: classpath:server-3level.jks
-    key-store-password: s3cr3t
-    key-password: s3cr3t
+    key-store: classpath:server-keystore.p12
+    key-store-password: changeit
+    key-password: changeit
     #if we added below trust-store. The server will not accept normal access from webpage
-    trust-store: classpath:server-3level-trust.jks
-    trust-store-password: s3cr3t
+    trust-store: classpath:server-truststore.jks
+    trust-store-password: changeit
     #if we set this client-auth to WANT, the sub CA can access when we only set the rootCA in the truststore
     #but if we set it to NEED, if the sub CA is not in the truststore, it will never pass
-    client-auth: WANT
+    client-auth: NEED
 

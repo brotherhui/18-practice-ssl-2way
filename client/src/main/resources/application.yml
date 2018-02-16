@@ -8,8 +8,14 @@ server:
 #      trust-store-password: s3cr3t
 #      client-auth: need
 ssltest:
-  key-store: classpath:client-3level.jks
-  key-store-password: s3cr3t 
-  key-password: s3cr3t 
-  trust-store: classpath:client-3level-trust.jks
-  trust-store-password: s3cr3t
+#  key-store: classpath:8003621566686112.p12
+#  key-store-password: Pass-123
+#  key-password: Pass-123
+  key-store: classpath:client-keystore.p12
+  key-store-password: changeit
+  key-password: changeit
+#  key-store: classpath:clienttest.jks
+#  key-store-password: s3cr3t
+#  key-password: s3cr3t
+  trust-store: classpath:client-truststore.jks
+  trust-store-password: changeit
