@@ -9,10 +9,12 @@ In this way, anyone can access http://localhost:8080/door?uri=https://localhost:
 #### 根证书的制作
 //all password is changeit
 1. 生成根证书
+<pre><code>
 mkdir private 
 openssl genrsa -aes256 -out private/rootca.key.pem 2048
 
 2、生成根证书签发申请（ca.csr）
+<pre><code>
 openssl req -new -key private/rootca.key.pem -out private/rootca.csr -subj "/C=CN/ST=LiaoNing/L=DL/O=company/OU=center/CN=*.brotherhui.com"
 req          产生证书签发申请命令
 -new         表示新请求
@@ -22,6 +24,7 @@ req          产生证书签发申请命令
 得到根证书签发申请文件后，我们可以将其发生给CA机构签发，当然我们也可以自行签发根证书。
 
 3、签发根证书（自行签发根证书, 自签证书）
+<pre><code>
 mkdir certs
 openssl x509 -req -days 10000 -sha1 -extensions v3_ca -signkey private/rootca.key.pem -in private/rootca.csr -out certs/rootca.cer -CAcreateserial
 x509        签发X.509格式证书命令。
