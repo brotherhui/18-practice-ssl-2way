@@ -1,20 +1,34 @@
 
+#Mutual Authentication
 This is used to test 2 ways SSL by adding the root CA certification into server side (trust store)and add sub CA certification in to client side(key store).
 To make sure if client can access server without adding the sub CA certification into server
 
+<p>
+1. rootca sign intermediate
+2. intermediate sign thirdlevel
+3. put only rootca and intermediate into server truststore
+4. use thirdlevel in client's keystore
+</p>
 
 #### Try
 In this way, anyone can access http://localhost:8080/door?uri=https://localhost:8443/user
 
+
+#### Conclusion
+
+3 level 2ways ssl is working fine with this 
+Type | Client | Server
+Keystore | thirdlevel | rootca
+truststore | rootca pubkey | rootca pubkey and intermediate pubkey 
+
 #### 根证书的制作
 //all password is changeit
-1. 生成根证书
 <pre><code>
+1. 生成根证书
 mkdir private 
 openssl genrsa -aes256 -out private/rootca.key.pem 2048
 
 2、生成根证书签发申请（ca.csr）
-<pre><code>
 openssl req -new -key private/rootca.key.pem -out private/rootca.csr -subj "/C=CN/ST=LiaoNing/L=DL/O=company/OU=center/CN=*.brotherhui.com"
 req          产生证书签发申请命令
 -new         表示新请求
@@ -24,7 +38,6 @@ req          产生证书签发申请命令
 得到根证书签发申请文件后，我们可以将其发生给CA机构签发，当然我们也可以自行签发根证书。
 
 3、签发根证书（自行签发根证书, 自签证书）
-<pre><code>
 mkdir certs
 openssl x509 -req -days 10000 -sha1 -extensions v3_ca -signkey private/rootca.key.pem -in private/rootca.csr -out certs/rootca.cer -CAcreateserial
 x509        签发X.509格式证书命令。
@@ -232,11 +245,4 @@ Certificate fingerprints:
 *******************************************
 >
 
-#### Conclusion
-
-3 level 2ways ssl is working fine with this 
-
-Type | Client | Server
-Keystore | thirdlevel | rootca
-truststore | rootca pubkey | rootca pubkey and intermediate pubkey 
 
