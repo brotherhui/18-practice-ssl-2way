@@ -3,6 +3,8 @@
 This is used to test 2 ways SSL by adding the root CA certification into server side (trust store)and add sub CA certification in to client side(key store).
 To make sure if client can access server without adding the sub CA certification into server
 
+please refer to ![Alt text](https://github.com/brotherhui/18-practice-ssl-rootca/blob/master/SSL-2ways.jpg?raw=true)
+
 <p>
 1. rootca sign intermediate
 2. intermediate sign thirdlevel
