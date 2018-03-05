@@ -23,110 +23,110 @@ Type | Client | Server
 Keystore | thirdlevel | rootca
 truststore | rootca pubkey | rootca pubkey and intermediate pubkey 
 
-#### ¸ùÖ¤ÊéµÄÖÆ×÷
+#### æ ¹è¯ä¹¦çš„åˆ¶ä½œ
 //all password is changeit
 <pre><code>
-1. Éú³É¸ùÖ¤Êé
+1. ç”Ÿæˆæ ¹è¯ä¹¦'s private key
 mkdir private 
 openssl genrsa -aes256 -out private/rootca.key.pem 2048
 
-2¡¢Éú³É¸ùÖ¤ÊéÇ©·¢ÉêÇë£¨ca.csr£©
+2ã€ç”Ÿæˆæ ¹è¯ä¹¦ç­¾å‘ç”³è¯·ï¼ˆca.csrï¼‰
 openssl req -new -key private/rootca.key.pem -out private/rootca.csr -subj "/C=CN/ST=LiaoNing/L=DL/O=company/OU=center/CN=*.brotherhui.com"
-req          ²úÉúÖ¤ÊéÇ©·¢ÉêÇëÃüÁî
--new         ±íÊ¾ĞÂÇëÇó
--key         ÃÜÔ¿,ÕâÀïÎªprivate/rootca.key.pemÎÄ¼ş
--out         Êä³öÂ·¾¶,ÕâÀïÎªprivate/rootca.csrÎÄ¼ş
--subj        Ö¸¶¨ÓÃ»§ĞÅÏ¢¡£ÕâÀïÊ¹ÓÃ·ºÓòÃû"*.brotherhui.com"
-µÃµ½¸ùÖ¤ÊéÇ©·¢ÉêÇëÎÄ¼şºó£¬ÎÒÃÇ¿ÉÒÔ½«Æä·¢Éú¸øCA»ú¹¹Ç©·¢£¬µ±È»ÎÒÃÇÒ²¿ÉÒÔ×ÔĞĞÇ©·¢¸ùÖ¤Êé¡£
+req          äº§ç”Ÿè¯ä¹¦ç­¾å‘ç”³è¯·å‘½ä»¤
+-new         è¡¨ç¤ºæ–°è¯·æ±‚
+-key         å¯†é’¥,è¿™é‡Œä¸ºprivate/rootca.key.pemæ–‡ä»¶
+-out         è¾“å‡ºè·¯å¾„,è¿™é‡Œä¸ºprivate/rootca.csræ–‡ä»¶
+-subj        æŒ‡å®šç”¨æˆ·ä¿¡æ¯ã€‚è¿™é‡Œä½¿ç”¨æ³›åŸŸå"*.brotherhui.com"
+å¾—åˆ°æ ¹è¯ä¹¦ç­¾å‘ç”³è¯·æ–‡ä»¶åï¼Œæˆ‘ä»¬å¯ä»¥å°†å…¶å‘ç”Ÿç»™CAæœºæ„ç­¾å‘ï¼Œå½“ç„¶æˆ‘ä»¬ä¹Ÿå¯ä»¥è‡ªè¡Œç­¾å‘æ ¹è¯ä¹¦ã€‚
 
-3¡¢Ç©·¢¸ùÖ¤Êé£¨×ÔĞĞÇ©·¢¸ùÖ¤Êé, ×ÔÇ©Ö¤Êé£©
+3ã€ç­¾å‘æ ¹è¯ä¹¦ï¼ˆè‡ªè¡Œç­¾å‘æ ¹è¯ä¹¦, è‡ªç­¾è¯ä¹¦ï¼‰
 mkdir certs
 openssl x509 -req -days 10000 -sha1 -extensions v3_ca -signkey private/rootca.key.pem -in private/rootca.csr -out certs/rootca.cer -CAcreateserial
-x509        Ç©·¢X.509¸ñÊ½Ö¤ÊéÃüÁî¡£
--req        ±íÊ¾Ö¤ÊéÊäÈëÇëÇó¡£
--days       ±íÊ¾ÓĞĞ§ÌìÊı,ÕâÀïÎª10000Ìì¡£
--shal       ±íÊ¾Ö¤ÊéÕªÒªËã·¨,ÕâÀïÎªSHA1Ëã·¨¡£
--extensions ±íÊ¾°´OpenSSLÅäÖÃÎÄ¼şv3_caÏîÌí¼ÓÀ©Õ¹¡£
--signkey    ±íÊ¾×ÔÇ©ÃûÃÜÔ¿,ÕâÀïÎªprivate/rootca.key.pem¡£
--in         ±íÊ¾ÊäÈëÎÄ¼ş,ÕâÀïÎªprivate/rootca.csr¡£
--out        ±íÊ¾Êä³öÎÄ¼ş,ÕâÀïÎªcerts/rootca.cer¡£
+x509        ç­¾å‘X.509æ ¼å¼è¯ä¹¦å‘½ä»¤ã€‚
+-req        è¡¨ç¤ºè¯ä¹¦è¾“å…¥è¯·æ±‚ã€‚
+-days       è¡¨ç¤ºæœ‰æ•ˆå¤©æ•°,è¿™é‡Œä¸º10000å¤©ã€‚
+-shal       è¡¨ç¤ºè¯ä¹¦æ‘˜è¦ç®—æ³•,è¿™é‡Œä¸ºSHA1ç®—æ³•ã€‚
+-extensions è¡¨ç¤ºæŒ‰OpenSSLé…ç½®æ–‡ä»¶v3_caé¡¹æ·»åŠ æ‰©å±•ã€‚
+-signkey    è¡¨ç¤ºè‡ªç­¾åå¯†é’¥,è¿™é‡Œä¸ºprivate/rootca.key.pemã€‚
+-in         è¡¨ç¤ºè¾“å…¥æ–‡ä»¶,è¿™é‡Œä¸ºprivate/rootca.csrã€‚
+-out        è¡¨ç¤ºè¾“å‡ºæ–‡ä»¶,è¿™é‡Œä¸ºcerts/rootca.cerã€‚
 
 
 
 
-#### ÖĞ¼äÖ¤ÊéµÄÖÆ×÷
-1. Éú³ÉÖĞ¼äÖ¤Êé
+#### ä¸­é—´è¯ä¹¦çš„åˆ¶ä½œ
+1. ç”Ÿæˆä¸­é—´è¯ä¹¦
 openssl genrsa -aes256 -out private/intermediate.key.pem 2048
 
-2¡¢Éú³ÉÖĞ¼äÖ¤ÊéÇ©·¢ÉêÇë£¨intermediate.csr£©
+2ã€ç”Ÿæˆä¸­é—´è¯ä¹¦ç­¾å‘ç”³è¯·ï¼ˆintermediate.csrï¼‰
 openssl req -new -key private/intermediate.key.pem -out private/intermediate.csr -subj "/C=CN/ST=LiaoNing/L=DL/O=company/OU=center/CN=intermediate.brotherhui.com"
 
-req          ²úÉúÖ¤ÊéÇ©·¢ÉêÇëÃüÁî
--new         ±íÊ¾ĞÂÇëÇó
--key         ÃÜÔ¿,ÕâÀïÎªprivate/intermediate.key.pemÎÄ¼ş
--out         Êä³öÂ·¾¶,ÕâÀïÎªprivate/intermediate.csrÎÄ¼ş
--subj        Ö¸¶¨ÓÃ»§ĞÅÏ¢¡£ÕâÀïÊ¹ÓÃÖĞ¼äÓòÃû"intermediate.brotherhui.com"
-µÃµ½¸ùÖ¤ÊéÇ©·¢ÉêÇëÎÄ¼şºó£¬ÎÒÃÇ¿ÉÒÔ½«Æä·¢Éú¸øCA»ú¹¹Ç©·¢£¬µ±È»ÎÒÃÇÒ²¿ÉÒÔ×ÔĞĞÇ©·¢¸ùÖ¤Êé¡£
+req          äº§ç”Ÿè¯ä¹¦ç­¾å‘ç”³è¯·å‘½ä»¤
+-new         è¡¨ç¤ºæ–°è¯·æ±‚
+-key         å¯†é’¥,è¿™é‡Œä¸ºprivate/intermediate.key.pemæ–‡ä»¶
+-out         è¾“å‡ºè·¯å¾„,è¿™é‡Œä¸ºprivate/intermediate.csræ–‡ä»¶
+-subj        æŒ‡å®šç”¨æˆ·ä¿¡æ¯ã€‚è¿™é‡Œä½¿ç”¨ä¸­é—´åŸŸå"intermediate.brotherhui.com"
+å¾—åˆ°æ ¹è¯ä¹¦ç­¾å‘ç”³è¯·æ–‡ä»¶åï¼Œæˆ‘ä»¬å¯ä»¥å°†å…¶å‘ç”Ÿç»™CAæœºæ„ç­¾å‘ï¼Œå½“ç„¶æˆ‘ä»¬ä¹Ÿå¯ä»¥è‡ªè¡Œç­¾å‘æ ¹è¯ä¹¦ã€‚
 
-3¡¢Ç©·¢ÖĞ¼äÖ¤Êé£¨¸ùÖ¤ÊéÇ©·¢£©, Ïàµ±ÓÚ¹«Ô¿
+3ã€ç­¾å‘ä¸­é—´è¯ä¹¦ï¼ˆæ ¹è¯ä¹¦ç­¾å‘ï¼‰, ç›¸å½“äºå…¬é’¥
 openssl x509 -req -days 10000 -sha1 -extensions v3_ca -in private/intermediate.csr -out certs/intermediate.cer -CA certs/rootca.cer -CAkey private/rootca.key.pem  -CAcreateserial 
-x509        Ç©·¢X.509¸ñÊ½Ö¤ÊéÃüÁî¡£
--req        ±íÊ¾Ö¤ÊéÊäÈëÇëÇó¡£
--days       ±íÊ¾ÓĞĞ§ÌìÊı,ÕâÀïÎª10000Ìì¡£
--shal       ±íÊ¾Ö¤ÊéÕªÒªËã·¨,ÕâÀïÎªSHA1Ëã·¨¡£
--extensions ±íÊ¾°´OpenSSLÅäÖÃÎÄ¼şv3_caÏîÌí¼ÓÀ©Õ¹¡£
--signkey    ±íÊ¾×ÔÇ©ÃûÃÜÔ¿,ÕâÀïÎªprivate/rootca.key.pem¡£
--in         ±íÊ¾ÊäÈëÎÄ¼ş,ÕâÀïÎªprivate/intermediate.csr¡£
--out        ±íÊ¾Êä³öÎÄ¼ş,ÕâÀïÎªcerts/intermediate.cer¡£
--CA         ±íÊ¾Ç©ÃûÓÃµÄÖ¤Êé
--CAkey      ±íÊ¾Ç©ÃûÓÃµÄÖ¤ÊéµÄkey
+x509        ç­¾å‘X.509æ ¼å¼è¯ä¹¦å‘½ä»¤ã€‚
+-req        è¡¨ç¤ºè¯ä¹¦è¾“å…¥è¯·æ±‚ã€‚
+-days       è¡¨ç¤ºæœ‰æ•ˆå¤©æ•°,è¿™é‡Œä¸º10000å¤©ã€‚
+-shal       è¡¨ç¤ºè¯ä¹¦æ‘˜è¦ç®—æ³•,è¿™é‡Œä¸ºSHA1ç®—æ³•ã€‚
+-extensions è¡¨ç¤ºæŒ‰OpenSSLé…ç½®æ–‡ä»¶v3_caé¡¹æ·»åŠ æ‰©å±•ã€‚
+-signkey    è¡¨ç¤ºè‡ªç­¾åå¯†é’¥,è¿™é‡Œä¸ºprivate/rootca.key.pemã€‚
+-in         è¡¨ç¤ºè¾“å…¥æ–‡ä»¶,è¿™é‡Œä¸ºprivate/intermediate.csrã€‚
+-out        è¡¨ç¤ºè¾“å‡ºæ–‡ä»¶,è¿™é‡Œä¸ºcerts/intermediate.cerã€‚
+-CA         è¡¨ç¤ºç­¾åç”¨çš„è¯ä¹¦
+-CAkey      è¡¨ç¤ºç­¾åç”¨çš„è¯ä¹¦çš„key
 
 
 
-#### Èı¼¶Ö¤ÊéµÄÖÆ×÷
-1. Éú³ÉÈı¼¶Ö¤Êé
+#### ä¸‰çº§è¯ä¹¦çš„åˆ¶ä½œ
+1. ç”Ÿæˆä¸‰çº§è¯ä¹¦
 openssl genrsa -aes256 -out private/thirdlevel.key.pem 2048
 
-2¡¢Éú³ÉÈı¼¶Ö¤ÊéÇ©·¢ÉêÇë£¨thirdlevel.csr£©
+2ã€ç”Ÿæˆä¸‰çº§è¯ä¹¦ç­¾å‘ç”³è¯·ï¼ˆthirdlevel.csrï¼‰
 openssl req -new -key private/thirdlevel.key.pem -out private/thirdlevel.csr -subj "/C=CN/ST=LiaoNing/L=DL/O=company/OU=center/CN=thirdlevel.intermediate.brotherhui.com"
-req          ²úÉúÖ¤ÊéÇ©·¢ÉêÇëÃüÁî
--new         ±íÊ¾ĞÂÇëÇó
--key         ÃÜÔ¿,ÕâÀïÎªprivate/thirdlevel.key.pemÎÄ¼ş
--out         Êä³öÂ·¾¶,ÕâÀïÎªprivate/thirdlevel.csrÎÄ¼ş
--subj        Ö¸¶¨ÓÃ»§ĞÅÏ¢¡£ÕâÀïÊ¹ÓÃÖĞ¼äÓòÃû"thirdlevel.intermediate.brotherhui.com"
-µÃµ½¸ùÖ¤ÊéÇ©·¢ÉêÇëÎÄ¼şºó£¬ÎÒÃÇ¿ÉÒÔ½«Æä·¢Éú¸øCA»ú¹¹Ç©·¢£¬µ±È»ÎÒÃÇÒ²¿ÉÒÔ×ÔĞĞÇ©·¢¸ùÖ¤Êé¡£
+req          äº§ç”Ÿè¯ä¹¦ç­¾å‘ç”³è¯·å‘½ä»¤
+-new         è¡¨ç¤ºæ–°è¯·æ±‚
+-key         å¯†é’¥,è¿™é‡Œä¸ºprivate/thirdlevel.key.pemæ–‡ä»¶
+-out         è¾“å‡ºè·¯å¾„,è¿™é‡Œä¸ºprivate/thirdlevel.csræ–‡ä»¶
+-subj        æŒ‡å®šç”¨æˆ·ä¿¡æ¯ã€‚è¿™é‡Œä½¿ç”¨ä¸­é—´åŸŸå"thirdlevel.intermediate.brotherhui.com"
+å¾—åˆ°æ ¹è¯ä¹¦ç­¾å‘ç”³è¯·æ–‡ä»¶åï¼Œæˆ‘ä»¬å¯ä»¥å°†å…¶å‘ç”Ÿç»™CAæœºæ„ç­¾å‘ï¼Œå½“ç„¶æˆ‘ä»¬ä¹Ÿå¯ä»¥è‡ªè¡Œç­¾å‘æ ¹è¯ä¹¦ã€‚
 
-3¡¢Ç©·¢Èı¼¶Ö¤Êé£¨ÖĞ¼äÖ¤ÊéÇ©·¢£©, Ïàµ±ÓÚ¹«Ô¿
+3ã€ç­¾å‘ä¸‰çº§è¯ä¹¦ï¼ˆä¸­é—´è¯ä¹¦ç­¾å‘ï¼‰, ç›¸å½“äºå…¬é’¥
 openssl x509 -req -days 10000 -sha1 -extensions v3_ca -in private/thirdlevel.csr -out certs/thirdlevel.cer -CA certs/intermediate.cer -CAkey private/intermediate.key.pem  -CAcreateserial 
-x509        Ç©·¢X.509¸ñÊ½Ö¤ÊéÃüÁî¡£
--req        ±íÊ¾Ö¤ÊéÊäÈëÇëÇó¡£
--days       ±íÊ¾ÓĞĞ§ÌìÊı,ÕâÀïÎª10000Ìì¡£
--shal       ±íÊ¾Ö¤ÊéÕªÒªËã·¨,ÕâÀïÎªSHA1Ëã·¨¡£
--extensions ±íÊ¾°´OpenSSLÅäÖÃÎÄ¼şv3_caÏîÌí¼ÓÀ©Õ¹¡£
--in         ±íÊ¾ÊäÈëÎÄ¼ş,ÕâÀïÎªprivate/thirdlevel.csr¡£
--out        ±íÊ¾Êä³öÎÄ¼ş,ÕâÀïÎªcerts/thirdlevel.cer¡£
+x509        ç­¾å‘X.509æ ¼å¼è¯ä¹¦å‘½ä»¤ã€‚
+-req        è¡¨ç¤ºè¯ä¹¦è¾“å…¥è¯·æ±‚ã€‚
+-days       è¡¨ç¤ºæœ‰æ•ˆå¤©æ•°,è¿™é‡Œä¸º10000å¤©ã€‚
+-shal       è¡¨ç¤ºè¯ä¹¦æ‘˜è¦ç®—æ³•,è¿™é‡Œä¸ºSHA1ç®—æ³•ã€‚
+-extensions è¡¨ç¤ºæŒ‰OpenSSLé…ç½®æ–‡ä»¶v3_caé¡¹æ·»åŠ æ‰©å±•ã€‚
+-in         è¡¨ç¤ºè¾“å…¥æ–‡ä»¶,è¿™é‡Œä¸ºprivate/thirdlevel.csrã€‚
+-out        è¡¨ç¤ºè¾“å‡ºæ–‡ä»¶,è¿™é‡Œä¸ºcerts/thirdlevel.cerã€‚
 
 
 
-#### keystore, truststoreÖÆ×÷
-Ä¿±ê£¬ ÊµÏÖ2 way ssl (mutual auth), ĞèÒª½«rootcaºÍintermediateµÄÖ¤ÊéÁ´·Åµ½·şÎñÆ÷¶ËµÄtruststore, ¶ø²»½«thirdlevelµÄÖ¤Êé·ÅÈë´Ó¶ø´ïµ½¿Í»§¶Ë¿ÉÒÔ2 waysslµÄÄ¿µÄ
+#### keystore, truststoreåˆ¶ä½œ
+ç›®æ ‡ï¼Œ å®ç°2 way ssl (mutual auth), éœ€è¦å°†rootcaå’Œintermediateçš„è¯ä¹¦é“¾æ”¾åˆ°æœåŠ¡å™¨ç«¯çš„truststore, è€Œä¸å°†thirdlevelçš„è¯ä¹¦æ”¾å…¥ä»è€Œè¾¾åˆ°å®¢æˆ·ç«¯å¯ä»¥2 waysslçš„ç›®çš„
 
-1. Server-keystore Èç¹ûÒªÒÔ¸ùÖ¤ÊéÌá¹©·şÎñ£¬ ½«Æä×ª»¯Îªkeystore£¨×ª»¯ÎªPKCS#12±àÂë¸ñÊ½£¬¿ÉÓÃÓÚÆäËû³¡¾°£©
+1. Server-keystore å¦‚æœè¦ä»¥æ ¹è¯ä¹¦æä¾›æœåŠ¡ï¼Œ å°†å…¶è½¬åŒ–ä¸ºkeystoreï¼ˆè½¬åŒ–ä¸ºPKCS#12ç¼–ç æ ¼å¼ï¼Œå¯ç”¨äºå…¶ä»–åœºæ™¯ï¼‰
 mkdir keystore
 openssl pkcs12 -export -inkey private/rootca.key.pem -in certs/rootca.cer -out keystore/server-keystore.p12
-pkcs12          PKCS#12±àÂë¸ñÊ½Ö¤ÊéÃüÁî¡£
--export         ±íÊ¾µ¼³öÖ¤Êé¡£
--cacerts        ±íÊ¾½öµ¼³öCAÖ¤Êé¡£
--inkey          ±íÊ¾ÊäÈëÃÜÔ¿,ÕâÀïÎªprivate/rootca.key.pem
--in             ±íÊ¾ÊäÈëÎÄ¼ş,ÕâÀïÎªcerts/rootca.cer
--out            ±íÊ¾Êä³öÎÄ¼ş,ÕâÀïÎªcerts/rootca.p12
-¸öÈËĞÅÏ¢½»»»ÎÄ¼ş£¨PKCS#12£© ¿ÉÒÔ×÷ÎªÃÜÔ¿¿â»òĞÅÈÎ¿âÊ¹ÓÃ£¬ÎÒÃÇ¿ÉÒÔÍ¨¹ıKeyTool²é¿´ÃÜÔ¿¿âµÄÏêÏ¸ĞÅÏ¢¡£
+pkcs12          PKCS#12ç¼–ç æ ¼å¼è¯ä¹¦å‘½ä»¤ã€‚
+-export         è¡¨ç¤ºå¯¼å‡ºè¯ä¹¦ã€‚
+-cacerts        è¡¨ç¤ºä»…å¯¼å‡ºCAè¯ä¹¦ã€‚
+-inkey          è¡¨ç¤ºè¾“å…¥å¯†é’¥,è¿™é‡Œä¸ºprivate/rootca.key.pem
+-in             è¡¨ç¤ºè¾“å…¥æ–‡ä»¶,è¿™é‡Œä¸ºcerts/rootca.cer
+-out            è¡¨ç¤ºè¾“å‡ºæ–‡ä»¶,è¿™é‡Œä¸ºcerts/rootca.p12
+ä¸ªäººä¿¡æ¯äº¤æ¢æ–‡ä»¶ï¼ˆPKCS#12ï¼‰ å¯ä»¥ä½œä¸ºå¯†é’¥åº“æˆ–ä¿¡ä»»åº“ä½¿ç”¨ï¼Œæˆ‘ä»¬å¯ä»¥é€šè¿‡KeyToolæŸ¥çœ‹å¯†é’¥åº“çš„è¯¦ç»†ä¿¡æ¯ã€‚
 
 
-2¡¢²é¿´ÃÜÔ¿¿âĞÅÏ¢
+2ã€æŸ¥çœ‹å¯†é’¥åº“ä¿¡æ¯
 keytool -list -keystore keystore/server-keystore.p12 -storetype pkcs12 -v -storepass changeit
-×¢Òâ£¬ÕâÀï²ÎÊı-storetypeÖµÎª¡°pkcs12¡±¡£
-ÎÒÃÇÒÑ¾­¹¹½¨ÁË¸ùÖ¤Êé£¨rootca.cer£©,ÎÒÃÇ¿ÉÒÔÊ¹ÓÃ¸ùÖ¤ÊéÇ©·¢·şÎñÆ÷Ö¤ÊéºÍ¿Í»§Ö¤Êé¡£
+æ³¨æ„ï¼Œè¿™é‡Œå‚æ•°-storetypeå€¼ä¸ºâ€œpkcs12â€ã€‚
+æˆ‘ä»¬å·²ç»æ„å»ºäº†æ ¹è¯ä¹¦ï¼ˆrootca.cerï¼‰,æˆ‘ä»¬å¯ä»¥ä½¿ç”¨æ ¹è¯ä¹¦ç­¾å‘æœåŠ¡å™¨è¯ä¹¦å’Œå®¢æˆ·è¯ä¹¦ã€‚
 >
 Keystore type: PKCS12
 Keystore provider: SunJSSE
@@ -151,11 +151,11 @@ Certificate fingerprints:
 >
 
 
-3. Client-TrustStore Èç¹ûÒªÒÔ¸ùÖ¤ÊéÌá¹©·şÎñ¶Ë·şÎñ£¬ Èç¹ûÊÇclient¶ËË«Ïòssl·ÃÎÊµÄ»°£¬ ĞèÒª°Ñ¸ùÖ¤ÊéµÄ¹«Ô¿·Åµ½client¶ËµÄclient truststore
+3. Client-TrustStore å¦‚æœè¦ä»¥æ ¹è¯ä¹¦æä¾›æœåŠ¡ç«¯æœåŠ¡ï¼Œ å¦‚æœæ˜¯clientç«¯åŒå‘sslè®¿é—®çš„è¯ï¼Œ éœ€è¦æŠŠæ ¹è¯ä¹¦çš„å…¬é’¥æ”¾åˆ°clientç«¯çš„client truststore
 keytool -importcert -alias 1 -file certs/rootca.cer -keypass changeit -keystore keystore/client-truststore.jks -storepass changeit -noprompt
 
 
-4. Client-Keystore Ö»ÊÇÓÃthirdlevelµÄclientkeystore
+4. Client-Keystore åªæ˜¯ç”¨thirdlevelçš„clientkeystore
 openssl pkcs12 -export  -aes256  -inkey private/intermediate.key.pem -in certs/intermediate.cer -out keystore/intermediate-keystore.p12
 keytool -list -keystore keystore/intermediate-keystore.p12 -storetype pkcs12 -v -storepass changeit
 
@@ -205,7 +205,7 @@ Certificate fingerprints:
 *******************************************
 >
 
-5. Server-TrustStore Ö»±£´ærootcaºÍintermediateµÄÖ¤Êé
+5. Server-TrustStore åªä¿å­˜rootcaå’Œintermediateçš„è¯ä¹¦
 keytool -importcert -alias rootca -file certs/rootca.cer -keypass changeit -keystore keystore/server-truststore.jks -storepass changeit -noprompt
 keytool -importcert -alias intermediate -file certs/intermediate.cer -keypass changeit -keystore keystore/server-truststore.jks -storepass changeit -noprompt
 
