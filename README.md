@@ -1,5 +1,5 @@
 
-#Mutual Authentication
+#Mutual Authentication 
 This is used to test 2 ways SSL by adding the root CA certification into server side (trust store)and add sub CA certification in to client side(key store).
 To make sure if client can access server without adding the sub CA certification into server
 
