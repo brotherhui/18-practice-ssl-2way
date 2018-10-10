@@ -27,11 +27,11 @@ truststore | rootca pubkey | rootca pubkey and intermediate pubkey
 #### 根证书的制作
 //all password is changeit
 <pre><code>
-1. 生成根证书's private key
+1. 生成一个私钥， 这个私钥被保存在pem格式的文件中， pem格式的文件还可以直接保存证书
 mkdir private 
 openssl genrsa -aes256 -out private/rootca.key.pem 2048
 
-2、生成根证书签发申请（ca.csr）
+2、利用这个私钥生成证书签发申请（ca.csr）
 openssl req -new -key private/rootca.key.pem -out private/rootca.csr -subj "/C=CN/ST=LiaoNing/L=DL/O=company/OU=center/CN=*.brotherhui.com"
 req          产生证书签发申请命令
 -new         表示新请求
@@ -40,7 +40,7 @@ req          产生证书签发申请命令
 -subj        指定用户信息。这里使用泛域名"*.brotherhui.com"
 得到根证书签发申请文件后，我们可以将其发生给CA机构签发，当然我们也可以自行签发根证书。
 
-3、签发根证书（自行签发根证书, 自签证书）
+3、签发根证书（自行签发根证书, 自签证书）, 生成一个证书文件， 证书中会包含公钥
 mkdir certs
 openssl x509 -req -days 10000 -sha1 -extensions v3_ca -signkey private/rootca.key.pem -in private/rootca.csr -out certs/rootca.cer -CAcreateserial
 x509        签发X.509格式证书命令。
@@ -112,7 +112,7 @@ x509        签发X.509格式证书命令。
 #### keystore, truststore制作
 目标， 实现2 way ssl (mutual auth), 需要将rootca和intermediate的证书链放到服务器端的truststore, 而不将thirdlevel的证书放入从而达到客户端可以2 wayssl的目的
 
-1. Server-keystore 如果要以根证书提供服务， 将其转化为keystore（转化为PKCS#12编码格式，可用于其他场景）
+1. Server-keystore 如果要以根证书提供服务， 将其转化为keystore（转化为PKCS#12编码格式）
 mkdir keystore
 openssl pkcs12 -export -inkey private/rootca.key.pem -in certs/rootca.cer -out keystore/server-keystore.p12
 pkcs12          PKCS#12编码格式证书命令。
@@ -124,7 +124,7 @@ pkcs12          PKCS#12编码格式证书命令。
 个人信息交换文件（PKCS#12） 可以作为密钥库或信任库使用，我们可以通过KeyTool查看密钥库的详细信息。
 
 
-2、查看密钥库信息
+2、查看密钥库信息， 这个密钥库中刚生成的时候可以保存的是私钥和证书对priviateKeyEntry. 请注意， 这种方式生成的p12文件， 跟使用keygenpair直接生成的jks格式的密钥库文件性质是一样的 只是keygenpair一次性生成jks文件并保存密钥和证书对。 openssl的方式是先生成密钥， 然后证书然后倒入到密钥库。
 keytool -list -keystore keystore/server-keystore.p12 -storetype pkcs12 -v -storepass changeit
 注意，这里参数-storetype值为“pkcs12”。
 我们已经构建了根证书（rootca.cer）,我们可以使用根证书签发服务器证书和客户证书。
@@ -152,7 +152,7 @@ Certificate fingerprints:
 >
 
 
-3. Client-TrustStore 如果要以根证书提供服务端服务， 如果是client端双向ssl访问的话， 需要把根证书的公钥放到client端的client truststore
+3. Client-TrustStore 如果要以根证书提供服务端服务， 如果是client端双向ssl访问的话， 需要把根证书放到client端的client truststore。 这里的证书都是trustedCertEntry
 keytool -importcert -alias 1 -file certs/rootca.cer -keypass changeit -keystore keystore/client-truststore.jks -storepass changeit -noprompt
 
 
