@@ -1,6 +1,7 @@
 please read https://community.developer.visa.com/t5/Developer-Tools/What-is-Mutual-Authentication/ba-p/5757
 
 #Mutual Authentication 
+```
 This is used to test 2 ways SSL by adding the root CA certification into server side (trust store)and add sub CA certification in to client side(key store).
 To make sure if client can access server without adding the sub CA certification into server
 
@@ -18,11 +19,12 @@ In this way, anyone can access http://localhost:8080/door?uri=https://localhost:
 
 
 #### Conclusion
-
+```
 3 level 2ways ssl is working fine with this 
 Type | Client | Server
 Keystore | thirdlevel | rootca
 truststore | rootca pubkey | rootca pubkey and intermediate pubkey 
+```
 
 #### 根证书的制作
 //all password is changeit
